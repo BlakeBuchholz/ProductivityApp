@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import "./App.css";
 
 const Timer = () => {
     const [seconds, setSeconds] = useState(0);
@@ -32,7 +33,7 @@ const Timer = () => {
     return (
         <div>
             <h2>Timer: {seconds}s</h2>
-            <button onClick={handleStartStop}>{isActive ? 'Stop' : 'Start'}</button>
+            <button className='startStopButton' onClick={handleStartStop}>{isActive ? 'Stop' : 'Start'}</button>
             <button onClick={handleReset}>Reset</button>
         </div>
     );

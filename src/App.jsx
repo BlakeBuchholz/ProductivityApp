@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import Timer from './Timer';
-import { Doughnut } from 'react-chartjs-2';
-import 'chart.js';
-
-
+import React, { useState, useEffect } from "react";
+import Timer from "./Timer";
+import { Doughnut } from "react-chartjs-2";
+import { Chart, ArcElement } from "chart.js";
+import "./App.css";
+Chart.register(ArcElement);
 
 function App() {
   const [tasks, setTasks] = useState([]);
-  const [newTask, setNewTask] = useState('');
+  const [newTask, setNewTask] = useState("");
 
   const addTask = () => {
-    if (newTask.trim() !== '') {
+    if (newTask.trim() !== "") {
       setTasks([...tasks, { name: newTask, time: 0, isActive: false }]);
-      setNewTask('');
+      setNewTask("");
     }
   };
 
@@ -56,10 +56,10 @@ function App() {
 
   return (
     <div>
-      <h1>Task Dashboard</h1>
-  
+      <nav className="navbar">
+        <h1>Task Dashboard</h1>
+      </nav>
       <Timer />
-  
       <h2>Tasks</h2>
       <input
         type="text"
@@ -80,30 +80,37 @@ function App() {
           </li>
         ))}
       </ul>
-  
-      <h2>Time Distribution</h2>
-      <Doughnut
-        data={{
-          labels: tasks.map((task) => task.name),
-          datasets: [
-            {
-              data: tasks.map((task) => task.time),
-              backgroundColor: [
-                '#FF6384',
-                '#36A2EB',
-                '#FFCE56',
-                '#8C9EFF',
-                '#FF8A80',
-                '#A7FFEB',
-                '#B9F6CA',
+
+      <h2 className="timeDistribution">Time Distribution</h2>
+      <div className="pieContainer">
+        <div className="pieChart">
+          <Doughnut
+            data={{
+              labels: tasks.map((task) => task.name),
+              datasets: [
+                {
+                  data: tasks.map((task) => task.time),
+                  backgroundColor: [
+                    "#FF6384",
+                    "#36A2EB",
+                    "#FFCE56",
+                    "#8C9EFF",
+                    "#FF8A80",
+                    "#A7FFEB",
+                    "#B9F6CA",
+                  ],
+                },
               ],
-            },
-          ],
-        }}
-      />
+            }}
+            /* Remove the maintainAspectRatio option */
+            /* options={{
+        maintainAspectRatio: false,
+      }} */
+          />
+        </div>
+      </div>
     </div>
   );
-  
 }
 
 export default App;
